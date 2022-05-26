@@ -6,7 +6,7 @@ export const series = [
         year: 1999,
         poster: 'https://m.media-amazon.com/images/M/MV5BZGJjYzhjYTYtMDBjYy00OWU1LTg5OTYtNmYwOTZmZjE3ZDdhXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_.jpg',
         watched: true,
-        score: 5,
+        score: 4,
         emmies: 21,
     },
     {
@@ -26,7 +26,7 @@ export const series = [
         year: 2007,
         poster: 'https://pics.filmaffinity.com/Mad_Men_Serie_de_TV-351490728-large.jpg',
         watched: true,
-        score: 5,
+        score: 3,
         emmies: 116,
     },
     {

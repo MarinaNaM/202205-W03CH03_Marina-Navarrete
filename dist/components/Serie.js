@@ -1,11 +1,16 @@
+import { series } from '../scripts/series.js';
 import { Component } from './component.js';
+import { Puntuation } from './Puntuation.js';
 export class Serie extends Component {
     item;
+    SERIES;
     constructor(item, selector) {
         super();
         this.item = item;
+        this.SERIES = series;
         this.template = this.createTemplate();
         this.addRender(selector);
+        new Puntuation(item.score, 'slot.puntuation');
     }
     createTemplate() {
         let html = `
@@ -18,23 +23,7 @@ export class Serie extends Component {
             <h4 class="serie__title">${this.item.name}</h4>
             <p class="serie__info">${this.item.creator} (${this.item.year})</p>
             `;
-        html += `<ul class="score">
-                <li class="score__star">
-                <i class="icon--score fas fa-star" title="1/5"></i>
-                </li>
-                <li class="score__star">
-                <i class="icon--score fas fa-star" title="2/5"></i>
-                </li>
-                <li class="score__star">
-                <i class="icon--score fas fa-star" title="3/5"></i>
-                </li>
-                <li class="score__star">
-                <i class="icon--score fas fa-star" title="4/5"></i>
-                </li>
-                <li class="score__star">
-                <i class="icon--score fas fa-star" title="5/5"></i>
-                </li>
-            </ul>`;
+        html += `<slot class=puntuation></slot>`;
         html += `
             <i class="fas fa-times-circle icon--delete"></i>
         </li>
