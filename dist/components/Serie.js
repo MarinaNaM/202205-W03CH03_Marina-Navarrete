@@ -10,7 +10,7 @@ export class Serie extends Component {
         this.SERIES = series;
         this.template = this.createTemplate();
         this.addRender(selector);
-        new Puntuation(item.score, 'slot.puntuation');
+        new Puntuation(item, 'slot.puntuation');
     }
     createTemplate() {
         let html = `

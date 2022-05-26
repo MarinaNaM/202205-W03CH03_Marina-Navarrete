@@ -1,11 +1,13 @@
-import { series } from '../scripts/series.js';
+import { getData, setData } from '../services/store.js';
 import { Component } from './component.js';
 import { Serie } from './Serie.js';
 export class List extends Component {
+    selector;
     SERIES;
     constructor(selector) {
         super();
-        this.SERIES = series;
+        this.selector = selector;
+        this.SERIES = getData();
         this.template = this.createTemplate();
         this.render(selector);
         this.SERIES.forEach((item) => {
@@ -16,6 +18,7 @@ export class List extends Component {
                 new Serie(item, 'slot.pending');
             }
         });
+        this.manageComponent();
     }
     createTemplate() {
         return `<section class="series">
@@ -37,5 +40,41 @@ export class List extends Component {
                         </ul>
                     </section>
                 </section>`;
+    }
+    manageComponent() {
+        document
+            .querySelectorAll('.button')
+            .forEach((item) => item.addEventListener('click', this.handlerButton.bind(this)));
+        // document
+        //     .querySelectorAll('[type=checkbox]')
+        //     .forEach((item) =>
+        //         item.addEventListener('change', this.handlerChange.bind(this))
+        //     );
+    }
+    handlerButton(ev) {
+        const star = ev.target.title[0];
+        const id = ev.target.parentElement.id;
+        this.SERIES = this.SERIES.map((item) => {
+            if (item.id === Number(id)) {
+                item.score = Number(star);
+                item.watched = true;
+                return item;
+            }
+            else {
+                return item;
+            }
+        });
+        this.template = this.createTemplate();
+        this.render(this.selector);
+        this.SERIES.forEach((item) => {
+            if (item.watched === true) {
+                new Serie(item, 'slot.watched');
+            }
+            else {
+                new Serie(item, 'slot.pending');
+            }
+        });
+        setData(this.SERIES);
+        this.manageComponent();
     }
 }
